@@ -16,6 +16,27 @@ class DespesasPessoais extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData().copyWith(
+        colorScheme: ThemeData().colorScheme.copyWith(
+              primary: Colors.purple,
+              secondary: Colors.amber,
+            ),
+        textTheme: ThemeData().textTheme.copyWith(
+              titleMedium: const TextStyle(
+                fontFamily: 'Quicksand',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -51,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       builder: (_) {
         return TransacaoForm(
-          onSubmit: null,
+          onSubmit: _addTransacao,
         );
       },
     );
@@ -61,11 +82,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Despesas Pessoais'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text(
+          'Despesas Pessoais',
+          style: TextStyle(),
+        ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () => _abrirModal(context),
             icon: Icon(Icons.add),
           )
         ],
@@ -81,18 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('Gráfico'),
               ),
             ),
-            Column(
-              children: [
-                TransacaoForm(onSubmit: _addTransacao),
-                TransacaoLista(transacoes: _transacoes.toList()),
-              ],
-            ),
+            TransacaoLista(transacoes: _transacoes.toList()),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => _abrirModal(context),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

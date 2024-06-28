@@ -2,16 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TransacaoForm extends StatelessWidget {
-  final tituloController = TextEditingController();
-  final valorController = TextEditingController();
-
+class TransacaoForm extends StatefulWidget {
   final void Function(String, double)? onSubmit;
 
   TransacaoForm({
     Key? key,
     this.onSubmit,
   }) : super(key: key);
+
+  @override
+  State<TransacaoForm> createState() => _TransacaoFormState();
+}
+
+class _TransacaoFormState extends State<TransacaoForm> {
+  final tituloController = TextEditingController();
+
+  final valorController = TextEditingController();
 
   _submitForm() {
     final titulo = tituloController.text;
@@ -21,7 +27,8 @@ class TransacaoForm extends StatelessWidget {
       return;
     }
 
-    onSubmit!(titulo, valor);
+    widget.onSubmit!(titulo, valor);
+    Navigator.of(context).pop();
   }
 
   @override

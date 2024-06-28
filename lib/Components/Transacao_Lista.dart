@@ -30,7 +30,7 @@ class TransacaoLista extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.purple,
+                      color: Theme.of(context).colorScheme.primary,
                       width: 3,
                     ),
                     borderRadius: BorderRadius.circular(100),
@@ -41,7 +41,6 @@ class TransacaoLista extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      color: Colors.purple,
                     ),
                   ),
                 ),
@@ -50,10 +49,11 @@ class TransacaoLista extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       e.title,
-                      style: const TextStyle(
+                      style: Theme.of(context).textTheme.titleMedium,
+                      /*const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                      ),
+                      ),*/
                     ),
                     Text(
                       DateFormat('dd/MM/yyyy').format(e.date),
