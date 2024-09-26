@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class TransacaoForm extends StatefulWidget {
   final void Function(String, double)? onSubmit;
 
-  TransacaoForm({
-    Key? key,
+  const TransacaoForm({
+    super.key,
     this.onSubmit,
-  }) : super(key: key);
+  });
 
   @override
   State<TransacaoForm> createState() => _TransacaoFormState();
@@ -21,7 +20,7 @@ class _TransacaoFormState extends State<TransacaoForm> {
 
   _submitForm() {
     final titulo = tituloController.text;
-    final valor = double.parse(valorController.text) ?? 0;
+    final valor = double.parse(valorController.text);
 
     if (titulo.isEmpty || valor <= 0) {
       return;
@@ -36,24 +35,25 @@ class _TransacaoFormState extends State<TransacaoForm> {
     return Card(
       elevation: 5,
       child: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: tituloController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Título',
                   border: OutlineInputBorder(),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: valorController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => _submitForm(),
                 decoration: const InputDecoration(
                   labelText: 'Valor(R\$)',
@@ -70,7 +70,7 @@ class _TransacaoFormState extends State<TransacaoForm> {
                   },
                   style: ButtonStyle(
                     foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.purple),
+                        WidgetStateProperty.all<Color>(Colors.purple),
                   ),
                   child: const Text(
                     'Nova Transação',
