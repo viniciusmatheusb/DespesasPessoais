@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:despesaspessoais/Components/Transacao_Form.dart';
 import 'package:despesaspessoais/Components/Transacao_Lista.dart';
+import 'package:despesaspessoais/Components/chart.dart';
 import 'package:despesaspessoais/Models/Transacao.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
     Transacao(id: 't4', title: 'Celular', value: 29.90, date: DateTime.now()),
   ];
 
+  List<Transacao> get _transacoesRecentes {
+    return _transacoes.where((transacao) {
+      return transacao.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
   _addTransacao(String titulo, double valor) {
     final novaTransacao = Transacao(
       id: Random().nextDouble().toString(),
@@ -99,13 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: double.infinity,
-              child: const Card(
-                color: Colors.blue,
-                child: Text('Gráfico'),
-              ),
-            ),
+            Chart(transacoesRecentes: _transacoesRecentes),
             TransacaoLista(transacoes: _transacoes.toList()),
           ],
         ),
