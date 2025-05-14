@@ -5,8 +5,16 @@ import 'package:despesaspessoais/Components/Transacao_Lista.dart';
 import 'package:despesaspessoais/Components/chart.dart';
 import 'package:despesaspessoais/Models/Transacao.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializa a formatação para pt_BR
+  await initializeDateFormatting('pt_BR');
+  Intl.defaultLocale = 'pt_BR';
+
   runApp(const DespesasPessoais());
 }
 
@@ -50,10 +58,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transacao> _transacoes = [
-    Transacao(id: 't1', title: 'Energia', value: 347.50, date: DateTime.now()),
-    Transacao(id: 't2', title: 'Água', value: 125.12, date: DateTime.now()),
-    Transacao(id: 't3', title: 'Internet', value: 79.90, date: DateTime.now()),
-    Transacao(id: 't4', title: 'Celular', value: 29.90, date: DateTime.now()),
+    Transacao(
+        id: 't1',
+        title: 'Energia',
+        value: 347.50,
+        date: DateTime.now().subtract(const Duration(days: 1))),
+    Transacao(
+        id: 't2',
+        title: 'Água',
+        value: 125.12,
+        date: DateTime.now().subtract(const Duration(days: 2))),
+    Transacao(
+        id: 't3',
+        title: 'Internet',
+        value: 79.90,
+        date: DateTime.now().subtract(const Duration(days: 3))),
+    Transacao(
+        id: 't4',
+        title: 'Celular',
+        value: 29.90,
+        date: DateTime.now().subtract(const Duration(days: 4))),
+    Transacao(
+        id: 't5',
+        title: 'Celular',
+        value: 229.90,
+        date: DateTime.now().subtract(const Duration(days: 2))),
+    Transacao(
+        id: 't6',
+        title: 'Celular',
+        value: 429.90,
+        date: DateTime.now().subtract(const Duration(days: 4))),
   ];
 
   List<Transacao> get _transacoesRecentes {

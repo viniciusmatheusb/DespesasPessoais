@@ -1,4 +1,6 @@
-import 'package:despesaspessoais/Components/chart_bar.dart';
+import 'dart:math';
+
+import 'package:despesaspessoais/Components/Chart_Bar.dart';
 import 'package:despesaspessoais/Models/Transacao.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,11 +10,11 @@ class Chart extends StatelessWidget {
 
   Chart({super.key, required this.transacoesRecentes});
 
-  List<Map<String, Object>> get grupoDeTransacoes {
+  List<Map<String, dynamic>> get grupoDeTransacoes {
     return List.generate(7, (index) {
       final diasDaSemana = DateTime.now().subtract(Duration(days: index));
 
-      DateFormat.E().format(diasDaSemana)[0];
+      DateFormat.EEEE('pt_BR').format(diasDaSemana)[0];
 
       double totalDia = 0;
 
@@ -27,9 +29,15 @@ class Chart extends StatelessWidget {
       }
 
       return {
-        "day": DateFormat.E().format(diasDaSemana)[0],
+        "day": DateFormat.E('pt_BR').format(diasDaSemana).toUpperCase(),
         "valor": totalDia,
       };
+    }).reversed.toList();
+  }
+
+  double get _weekTotalValor {
+    return grupoDeTransacoes.fold<double>(0.0, (soma, item) {
+      return soma + (item['valor'] as double);
     });
   }
 
@@ -37,15 +45,24 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
-      child: Row(
-        children: grupoDeTransacoes.map((data) {
-          return Chart_Bar(
-            label: data['day'].toString(),
-            value: 2,
-            percentage: 0,
-          );
-        }).toList(),
+      margin: const EdgeInsets.all(10),
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: grupoDeTransacoes.map((data) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                label: data['day'].toString(),
+                value: (data['valor'] as double),
+                percentage: _weekTotalValor == 0
+                    ? 0
+                    : (data['valor'] as double) / _weekTotalValor,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

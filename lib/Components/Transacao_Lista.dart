@@ -40,51 +40,26 @@ class TransacaoLista extends StatelessWidget {
               itemBuilder: (context, index) {
                 final e = transacoes![index];
                 return Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.primary,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          'R\$ ${e.value.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                  elevation: 2,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text('R\$ ${e.value}'),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            e.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                            /*const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),*/
-                          ),
-                          Text(
-                            DateFormat('dd/MM/yyyy').format(e.date),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: Colors.grey,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
+                    ),
+                    title: Text(
+                      e.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    subtitle: Text(
+                      DateFormat('d MMM y').format(e.date),
+                    ),
                   ),
                 );
               },
