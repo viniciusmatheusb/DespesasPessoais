@@ -32,7 +32,7 @@ class Chart extends StatelessWidget {
         "day": DateFormat.E('pt_BR').format(diasDaSemana).toUpperCase(),
         "valor": totalDia,
       };
-    }).reversed.toList();
+    }).toList();
   }
 
   double get _weekTotalValor {

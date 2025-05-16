@@ -57,38 +57,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transacao> _transacoes = [
-    Transacao(
-        id: 't1',
-        title: 'Energia',
-        value: 347.50,
-        date: DateTime.now().subtract(const Duration(days: 1))),
-    Transacao(
-        id: 't2',
-        title: 'Água',
-        value: 125.12,
-        date: DateTime.now().subtract(const Duration(days: 2))),
-    Transacao(
-        id: 't3',
-        title: 'Internet',
-        value: 79.90,
-        date: DateTime.now().subtract(const Duration(days: 3))),
-    Transacao(
-        id: 't4',
-        title: 'Celular',
-        value: 29.90,
-        date: DateTime.now().subtract(const Duration(days: 4))),
-    Transacao(
-        id: 't5',
-        title: 'Celular',
-        value: 229.90,
-        date: DateTime.now().subtract(const Duration(days: 2))),
-    Transacao(
-        id: 't6',
-        title: 'Celular',
-        value: 429.90,
-        date: DateTime.now().subtract(const Duration(days: 4))),
-  ];
+  final List<Transacao> _transacoes = [];
 
   List<Transacao> get _transacoesRecentes {
     return _transacoes.where((transacao) {
@@ -96,12 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransacao(String titulo, double valor) {
+  _addTransacao(String titulo, double valor, DateTime data) {
     final novaTransacao = Transacao(
       id: Random().nextDouble().toString(),
       title: titulo,
       value: valor,
-      date: DateTime.now(),
+      date: data,
     );
 
     setState(() {
